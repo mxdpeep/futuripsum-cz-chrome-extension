@@ -1,0 +1,46 @@
+<html>
+<head>
+<script type="text/javascript">
+
+
+/**
+ * Futuripsum Google Chrome extension
+ * coded using RapidPHP 2011 by Blumentals Software
+ * (c) 2011 Filip Oščádal <filip@mxd.cz>
+ * published under GNU GPL v2 license
+ */
+
+
+// timer
+var t;
+
+// counter
+var c = 0;
+
+// toolbar button clicked
+chrome.browserAction.onClicked.addListener(function(tab)
+{
+  c++;
+  chrome.browserAction.setBadgeBackgroundColor({color: [255, 0, 0, 0]});
+  chrome.browserAction.setBadgeText({text: '' + c});
+  if (t) clearTimeout(t);
+  t = setTimeout('reset();', 1000);
+  return true;
+});
+
+// reset counter and show the quotes
+function reset()
+{
+  chrome.tabs.create({url: 'futuripsum.htm?counter=' + c, selected: true});
+  chrome.browserAction.setBadgeBackgroundColor({color:[0, 0, 200, 150]});
+  chrome.browserAction.setBadgeText({text: 'CS'});
+  c = 0;
+  return true;
+}
+
+chrome.browserAction.setBadgeBackgroundColor({color:[0, 0, 200, 150]});
+chrome.browserAction.setBadgeText({text: 'CS'});
+
+</script>
+</head>
+</html>
