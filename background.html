@@ -1,45 +1,64 @@
 <html>
 <head>
+<script type="text/javascript" src="preferences.js"></script>
 <script type="text/javascript">
 
-
 /**
- * Futuripsum Google Chrome extension
- * coded using RapidPHP 2011 by Blumentals Software
- * (c) 2011 Filip Oščádal <filip@mxd.cz>
- * published under GNU GPL v2 license
+ * FUTURIPSUM Google Chrome Extension
+ * Coded using Rapid PHP 2011 11.2
+ * (c) 2011-2012 Filip Oščádal <filip@mxd.cz>
+ * Published under GNU GPL v3+ license
  */
 
 
-// timer
+/** make prefs global */
+window.prefs = prefs;
+
+/** @var int timer */
 var t;
 
-// counter
+/** @var int counter */
 var c = 0;
 
-// toolbar button clicked
+/** event: toolbar button clicked */
 chrome.browserAction.onClicked.addListener(function(tab)
 {
   c++;
-  chrome.browserAction.setBadgeBackgroundColor({color: [255, 0, 0, 0]});
-  chrome.browserAction.setBadgeText({text: '' + c});
+  chrome.browserAction.setBadgeText({text: '' + c}); // convert (int) c to string!
+  chrome.browserAction.setBadgeBackgroundColor({color: window.prefs.colorClick});
   if (t) clearTimeout(t);
-  t = setTimeout('reset();', 1000);
+  t = setTimeout('contentTab()', window.prefs.timeout);
   return true;
 });
 
-// reset counter and show the quotes
-function reset()
+/** show content tab, reset counter and badge */
+function contentTab()
 {
-  chrome.tabs.create({url: 'futuripsum.htm?counter=' + c, selected: true});
-  chrome.browserAction.setBadgeBackgroundColor({color:[0, 0, 200, 150]});
-  chrome.browserAction.setBadgeText({text: 'CS'});
+  chrome.tabs.create(
+  {
+    url: window.prefs.tabURL + c,
+    selected: true
+  });
   c = 0;
+  reset();
   return true;
 }
 
-chrome.browserAction.setBadgeBackgroundColor({color:[0, 0, 200, 150]});
-chrome.browserAction.setBadgeText({text: 'CS'});
+/** reset badge */
+function reset()
+{
+  chrome.browserAction.setBadgeText(
+  {
+    text: window.prefs.lang
+  });
+  chrome.browserAction.setBadgeBackgroundColor(
+  {
+    color: window.prefs.colorReset
+  });
+  return true;
+}
+
+reset();
 
 </script>
 </head>

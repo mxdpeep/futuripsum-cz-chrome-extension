@@ -1,9 +1,12 @@
 {
-  "name": "Futuripsum česky",
-  "version": "1.1.3",
-  "description": "Futurama Lorem Ipsum generátor.",
+  "name": "FUTURIPSUM česky",
+  "version": "2.0.0",
+  "description": "Futurama Lorem Ipsum",
   "background_page": "background.html",
-  "permissions": [],
+  "permissions":
+  [
+    "notifications"
+  ],
   "icons":
   {
     "16": "futuripsum.16.png",
@@ -12,7 +15,7 @@
   },
   "browser_action":
   {
-    "default_title": "kliky = odstavce",
+    "default_title": "clicks = paragraphs",
     "default_icon": "icon-toolbar.png"
   },
   "update_url": "http://clients2.google.com/service/update2/crx"

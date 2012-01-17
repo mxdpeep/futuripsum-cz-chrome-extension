@@ -1,19 +1,3 @@
-﻿<!DOCTYPE html>
-<html lang="cs">
-<head>
-<meta charset="UTF-8">
-<title>Futuripsum</title>
-<script type="text/javascript">
-
-
-/**
- * Futuripsum Google Chrome extension
- * coded using RapidPHP 2011 by Blumentals Software
- * (c) 2011 Filip Oščádal <filip@mxd.cz>
- * published under GNU GPL v2 license
- */
-
-
 // Futurama quotes data
 var futuramadata = [
 "Nevadí že už jsem to udělal. Mimochodem, nemáte ještě víc těch Don Perrignon bublin do koupele? Bylo jich tam pouze na naplnění půlky vany. Vy máte docela veliký ranč. Vlastníme celou severní polokouli To je ta nejlepší polokoule. Na Zemi je to stejné. Nejvíce produktů tady máme od Mighty Buggalo. Používají se na všechno. Maso, mléko a z jejich krunýřů se dělají dobré loďky. Zničil jsem vaší televizi. To musí trvat věčnost označkovat všechen ten dobytek.",
@@ -809,43 +793,3 @@ var futuramadata = [
 "Co? Jak to že už ti nedokážu číst myšlenky? Já tě pomstím, Hutchi Waterfalle. Po všech těch dobách už tu není Temných. Zachováš jejich DNA, velký Enyklopede? Asi bych měl. Hej, kam to zmizelo? Co? No, ale každopádně uchovám DNA homo sapiens. Myslel jsem, že uchováváš jen DNA ohrožených druhů. Sbohem. Nejspíš mě neslyšel. No, vypadá to, že všechno skončilo, krásně velkým, tlustým… Tímto zatýkám vás uprchlíky za 53 uprchlických bodů. Kife, spoutej je, a projednou mě ušetři svých pohledů.",
 "Kife. Počkejte na mě. No a tohle je konec. Mám tolik věcí, co vám chci říct. Jako co? Jako že to není konec. Ale především, Miluji tě, Leelo. Možná jsem čekala moc dlouho, abych to řekla, ale taky tě miluju. Červí díra! Svatá matičko vesmírná, je obrovská! Pokud do ní vletíme, mohla by nás hodit triliony světelných let daleko. Není známo, jestli bychom se kdy vrátili. Co budeme dělat? Měli bychom do toho jít? Do trhliny, masníci. Nebo ne. To je fuk."
 ];
-
-var regex = new RegExp("[\\?&]counter=([^&#]*)");
-var results = regex.exec(window.location.href);
-if (results == null)
-{
-  var counter = 3;
-}
-else
-{
-  var counter = results[1];
-}
-
-var text = [];
-var l = futuramadata.length;
-text.push('<h1 style="text-align:center">Futuripsum česky</h1><p style="text-align:center"><img alt="Futuripsum" src="futuripsum.128.png" border=0></p>');
-
-text.push('<h2>HTML</h2>');
-for (var i = 0; i < counter; i++)
-{
-  text.push('<p>&lt;p&gt;');
-  text.push(futuramadata[parseInt(Math.random() * l)]);
-  text.push('&lt;/p&gt;</p>');
-}
-
-text.push('<h2>Text</h2>');
-for (var i = 0; i < counter; i++)
-{
-  text.push('<p>');
-  text.push(futuramadata[parseInt(Math.random() * l)]);
-  text.push('</p>');
-}
-
-</script>
-</head>
-<body id='body'></body>
-<script type="text/javascript">
-document.body.style.fontFamily = 'Arial';
-document.getElementById('body').innerHTML = text.join('');
-</script>
-</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FUTURIPSUM</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/javascript" src="preferences.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="futuramadata.js"></script>
+<script type="text/javascript">
+
+/**
+ * Futuripsum Google Chrome Extension
+ * Coded using Rapid PHP 2011 11.2
+ * (c) 2011-2012 Filip Oščádal <filip@mxd.cz>
+ * Published under GNU GPL v3+ license
+ */
+
+
+/** @var object - global prefs */
+window.prefs = prefs;
+
+/** @var int - global bytes copied */
+window.copied = 0;
+
+/** extract number of paragraphs */
+var regex = new RegExp(window.prefs.regex);
+var results = regex.exec(window.location.href);
+if (results === null)
+{
+  var counter = window.prefs.minParagraphs;
+}
+else
+{
+  var counter = results[1];
+}
+
+/** data length */
+var l = futuramadata.length;
+
+/** compose dynamic page */
+var text = [];
+text.push(window.prefs.title);
+
+text.push('<h2>HTML</h2><div onclick="cp(this.innerHTML);">');
+for (var i = 0; i < counter; i++)
+{
+  text.push('<p>');
+  text.push(futuramadata[parseInt(Math.random() * l)]);
+  text.push("</p>\r\n\r\n");
+}
+text.push('</div>');
+
+text.push('<h2>Text</h2><div onclick="cp(this.innerText);" title="' + window.prefs.tooltip + '">');
+for (var i = 0; i < counter; i++)
+{
+  text.push(futuramadata[parseInt(Math.random() * l)]);
+}
+text.push('</div>');
+
+function cp(data)
+{
+  Clipboard.copy(data);
+  notification();
+}
+
+/** show notification */
+function notification()
+{
+  var notification = webkitNotifications.createNotification(
+    'futuripsum.48.png',
+    window.prefs.appTitle,
+    window.copied + window.prefs.copyText
+  );
+  notification.show();
+  setTimeout(function()
+  {
+    notification.cancel();
+  }, window.prefs.notificationTimeout);
+
+  /** remove all notifications on window close event */
+  var _onunload = window.onunload;
+  window.onunload = function()
+  {
+    notification.cancel();
+    _onunload();
+  }
+}
+
+</script>
+</head>
+<body>
+<script type="text/javascript">
+document.write(text.join(''));
+</script>
+</body>
+</html>
