@@ -1,22 +1,18 @@
 {
-  "name": "FUTURIPSUM česky",
-  "version": "2.0.0",
+  "name": "Futuripsum česky",
+  "version": "2.0.3",
   "description": "Futurama Lorem Ipsum",
-  "background_page": "background.html",
-  "permissions":
-  [
-    "notifications"
-  ],
-  "icons":
-  {
+  "icons": {
     "16": "futuripsum.16.png",
     "48": "futuripsum.48.png",
     "128": "futuripsum.128.png"
   },
-  "browser_action":
-  {
+  "background_page": "background.html",
+  "permissions": [
+    "notifications"
+  ],
+  "browser_action": {
     "default_title": "clicks = paragraphs",
     "default_icon": "icon-toolbar.png"
-  },
-  "update_url": "http://clients2.google.com/service/update2/crx"
+  }
 }
