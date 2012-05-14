@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>FUTURIPSUM česky</title>
 <link rel="stylesheet" type="text/css" href="style.css">
-
 <script type="text/javascript" src="clipboard.js"></script>
 <script type="text/javascript" src="notification.js"></script>
 <script type="text/javascript" src="preferences.js"></script>
@@ -24,9 +23,9 @@ window.prefs = prefs;
 
 
 // set notification properties
-window.Notification.prefs.icon = 'notification.png';
-window.Notification.prefs.title = prefs.appTitle;
-window.Notification.prefs.timeout = prefs.notificationTimeout;
+Notification.prefs.icon = 'notification.png';
+Notification.prefs.title = prefs.appTitle;
+Notification.prefs.timeout = prefs.notificationTimeout;
 
 
 // @var int paragraph counter
