@@ -4,60 +4,83 @@
 <script type="text/javascript">
 
 /**
- * FUTURIPSUM Google Chrome Extension
- * Coded using Rapid PHP 2011 11.2
+ * Google Chrome Extension: FUTURIPSUM česky
+ * Coded using Rapid PHP 2011 11.22
  * (c) 2011-2012 Filip Oščádal <filip@mxd.cz>
  * Published under GNU GPL v3+ license
  */
 
 
-/** make prefs global */
+// make application prefs global
 window.prefs = prefs;
 
-/** @var int timer */
+
+// @var int timer
 var t;
 
-/** @var int counter */
+// @var int counter
 var c = 0;
 
-/** event: toolbar button clicked */
+
+// Chrome event - toolbar button clicked
 chrome.browserAction.onClicked.addListener(function(tab)
 {
-  c++;
-  chrome.browserAction.setBadgeText({text: '' + c}); // convert (int) c to string!
-  chrome.browserAction.setBadgeBackgroundColor({color: window.prefs.colorClick});
-  if (t) clearTimeout(t);
-  t = setTimeout('contentTab()', window.prefs.timeout);
-  return true;
+	c++;
+
+	// set badge text
+	chrome.browserAction.setBadgeText(
+	{
+		// must convert (int) c to string!
+		text: '' + c
+	});
+
+	// set badge background color
+	chrome.browserAction.setBadgeBackgroundColor(
+	{
+		color: window.prefs.colorClick
+	});
+
+	if (t) clearTimeout(t);
+	t = setTimeout('contentTab()', window.prefs.clickTimeout);
+
+	return true;
 });
 
-/** show content tab, reset counter and badge */
+// show content tab, reset counter and badge
 function contentTab()
 {
-  chrome.tabs.create(
-  {
-    url: window.prefs.tabURL + c,
-    selected: true
-  });
-  c = 0;
-  reset();
-  return true;
+	// create new tab
+	chrome.tabs.create(
+	{
+		url: window.prefs.tabURL + c,
+		selected: true
+	});
+
+	c = 0;
+	reset();
+
+	return true;
 }
 
-/** reset badge */
+// reset badge
 function reset()
 {
-  chrome.browserAction.setBadgeText(
-  {
-    text: window.prefs.lang
-  });
-  chrome.browserAction.setBadgeBackgroundColor(
-  {
-    color: window.prefs.colorReset
-  });
-  return true;
+	// set badge text
+	chrome.browserAction.setBadgeText(
+	{
+		text: window.prefs.lang
+	});
+
+	// set badge background color
+	chrome.browserAction.setBadgeBackgroundColor(
+	{
+		color: window.prefs.colorReset
+	});
+
+	return true;
 }
 
+// init
 reset();
 
 </script>

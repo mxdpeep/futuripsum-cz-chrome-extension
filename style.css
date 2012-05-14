@@ -1,14 +1,40 @@
 /**
- * FUTURIPSUM Google Chrome Extension
- * Coded using Rapid PHP 2011 11.2
+ * Google Chrome Extension: FUTURIPSUM česky
+ * Coded using Rapid PHP 2011 11.22
  * (c) 2011-2012 Filip Oščádal <filip@mxd.cz>
  * Published under GNU GPL v3+ license
  */
 
 
-body{font-family:Times}
-h1,h2{font-family:Helvetica;text-align:center}
-.title{display:block;text-align:center}
-div{cursor:pointer;text-align:justify;width:75%;margin:0 auto}
-img{border:2px solid transparent}
-img:hover{border:2px solid black}
+body {
+	font-family: Times;
+}
+
+div {
+	cursor: pointer;
+	text-align: justify;
+	width: 75%;
+	margin: 0 auto;
+}
+
+h1, h2 {
+	font-family: Helvetica;
+	text-align: center;
+}
+
+img {
+	border: 2px solid transparent;
+}
+
+a {
+	margin: 0 auto;
+}
+
+img:hover {
+	border: 2px solid #000;
+}
+
+.bender {
+	display: block;
+	text-align: center;
+}

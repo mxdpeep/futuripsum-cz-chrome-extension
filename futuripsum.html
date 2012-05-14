@@ -2,96 +2,95 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FUTURIPSUM</title>
+<title>FUTURIPSUM česky</title>
 <link rel="stylesheet" type="text/css" href="style.css">
-<script type="text/javascript" src="preferences.js"></script>
+
 <script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="notification.js"></script>
+<script type="text/javascript" src="preferences.js"></script>
 <script type="text/javascript" src="futuramadata.js"></script>
 <script type="text/javascript">
 
 /**
- * Futuripsum Google Chrome Extension
- * Coded using Rapid PHP 2011 11.2
+ * Google Chrome Extension: FUTURIPSUM česky
+ * Coded using Rapid PHP 2011 11.22
  * (c) 2011-2012 Filip Oščádal <filip@mxd.cz>
  * Published under GNU GPL v3+ license
  */
 
 
-/** @var object - global prefs */
+// make application prefs global
 window.prefs = prefs;
 
-/** @var int - global bytes copied */
-window.copied = 0;
 
-/** extract number of paragraphs */
-var regex = new RegExp(window.prefs.regex);
+// set notification properties
+window.Notification.prefs.icon = 'notification.png';
+window.Notification.prefs.title = prefs.appTitle;
+window.Notification.prefs.timeout = prefs.notificationTimeout;
+
+
+// @var int paragraph counter
+var counter;
+
+// extract number of paragraphs
+var regex = new RegExp(prefs.regex);
 var results = regex.exec(window.location.href);
 if (results === null)
 {
-  var counter = window.prefs.minParagraphs;
+	counter = prefs.minParagraphs;
 }
 else
 {
-  var counter = results[1];
+	counter = results[1];
 }
 
-/** data length */
+// @var int length
 var l = futuramadata.length;
 
-/** compose dynamic page */
+// @var array output
 var text = [];
-text.push(window.prefs.title);
 
-text.push('<h2>HTML</h2><div onclick="cp(this.innerHTML);">');
+
+text.push(prefs.title);
+text.push('<h2>HTML</h2><div onclick="cp(this.innerHTML);" title="' + prefs.tooltip + '">');
+
 for (var i = 0; i < counter; i++)
 {
-  text.push('<p>');
-  text.push(futuramadata[parseInt(Math.random() * l)]);
-  text.push("</p>\r\n\r\n");
+	text.push('<p>');
+	text.push(futuramadata[parseInt(Math.random() * l)]);
+	text.push("</p>\r\n\r\n");
 }
-text.push('</div>');
 
-text.push('<h2>Text</h2><div onclick="cp(this.innerText);" title="' + window.prefs.tooltip + '">');
+text.push('</div>');
+text.push('<h2>Text</h2><div onclick="cp(this.innerText);" title="' + prefs.tooltip + '">');
+
 for (var i = 0; i < counter; i++)
 {
-  text.push(futuramadata[parseInt(Math.random() * l)]);
+	text.push(futuramadata[parseInt(Math.random() * l)]);
 }
+
 text.push('</div>');
 
+
+// copy text and show notification
 function cp(data)
 {
-  Clipboard.copy(data);
-  notification();
-}
+	if (Clipboard.copy(data))
+	{
+		Notification.show(Clipboard.size + ' ' + window.prefs.copyText);
+	}
 
-/** show notification */
-function notification()
-{
-  var notification = webkitNotifications.createNotification(
-    'futuripsum.48.png',
-    window.prefs.appTitle,
-    window.copied + window.prefs.copyText
-  );
-  notification.show();
-  setTimeout(function()
-  {
-    notification.cancel();
-  }, window.prefs.notificationTimeout);
-
-  /** remove all notifications on window close event */
-  var _onunload = window.onunload;
-  window.onunload = function()
-  {
-    notification.cancel();
-    _onunload();
-  }
+	return true;
 }
 
 </script>
 </head>
 <body>
 <script type="text/javascript">
+
+// output page content
 document.write(text.join(''));
+
 </script>
 </body>
 </html>
