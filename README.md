@@ -1,7 +1,7 @@
 FUTURIPSUM česky
 ================
 
-Google Chrome Extension: FUTURAMA Lorem Ipsum generator
+Google Chrome Extension: FUTURAMA Lorem Ipsum generátor
 -------------------------------------------------------
 
 Naklikejte si myší počet odstavců, text se pak zobrazí v nové záložce.
@@ -14,5 +14,5 @@ clipboard.js = nezávislý clipboard copy helper
 notification.js = nezávislý notification helper
 
 
-Extenzi stáhnete přímo z Google Webstoru:
+Extenzi jednoduše stáhnete přímo z Google Webstoru:
 <https://chrome.google.com/webstore/detail/ahkloiblklodkddcbkndjdloancffmfl>
